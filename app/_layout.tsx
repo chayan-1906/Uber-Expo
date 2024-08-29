@@ -3,11 +3,12 @@ import {Stack} from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import {useEffect} from 'react';
 import 'react-native-reanimated';
+import {StatusBar} from "expo-status-bar";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function RootLayout() {
   const [loaded] = useFonts({
     'Jakarta-Bold': require('../assets/fonts/PlusJakartaSans-Bold.ttf'),
     'Jakarta-ExtraBold': require('../assets/fonts/PlusJakartaSans-ExtraBold.ttf'),
@@ -29,9 +30,16 @@ export default function RootLayout() {
   }
 
   return (
-      <Stack>
-        <Stack.Screen name='index' options={{ headerShown: false }} />
-        <Stack.Screen name='+not-found' />
-      </Stack>
+      <>
+          <Stack>
+              <Stack.Screen name='index' options={{headerShown: false}}/>
+              <Stack.Screen name='(auth)' options={{headerShown: false}}/>
+              <Stack.Screen name='(root)' options={{headerShown: false}}/>
+              <Stack.Screen name='+not-found'/>
+          </Stack>
+          <StatusBar style={'dark'}/>
+      </>
   );
 }
+
+export default RootLayout;

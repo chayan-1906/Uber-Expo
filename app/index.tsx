@@ -1,11 +1,9 @@
-import {Text, View} from "react-native";
+import routes from "@/constants/Routes";
+import {Href, Redirect} from "expo-router";
 
 function Home() {
     return (
-        <View>
-            <Text>Home</Text>
-            {/*37:58*/}
-        </View>
+        <Redirect href={routes.welcomePath as Href}/>
     );
 }
 

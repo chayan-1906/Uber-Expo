@@ -8,4 +8,8 @@
     npx tailwindcss init (Add folders inside tailwind.config.js > content)
     Add plugins array in babel.config.js (plugins: ["nativewind/babel"],)
 
+### React Native Swiper - https://www.npmjs.com/package/react-native-swiper
+    npm i react-native-swiper
+
+
 # Preview
