@@ -31,6 +31,21 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "03167529-f341-4c5a-8462-2896ced11717"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/03167529-f341-4c5a-8462-2896ced11717"
+    },
+    "owner": "padmanabha-personal"
   }
 }
