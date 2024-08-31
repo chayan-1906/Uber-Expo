@@ -4,9 +4,16 @@ import * as SplashScreen from 'expo-splash-screen';
 import {useEffect} from 'react';
 import 'react-native-reanimated';
 import {StatusBar} from "expo-status-bar";
+import {ClerkLoaded, ClerkProvider} from "@clerk/clerk-expo";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+if (!publishableKey) {
+    throw new Error('Missing Publishable Key');
+}
 
 function RootLayout() {
   const [loaded] = useFonts({
@@ -30,15 +37,17 @@ function RootLayout() {
   }
 
   return (
-      <>
-          <Stack>
-              <Stack.Screen name='index' options={{headerShown: false}}/>
-              <Stack.Screen name='(auth)' options={{headerShown: false}}/>
-              <Stack.Screen name='(root)' options={{headerShown: false}}/>
-              <Stack.Screen name='+not-found'/>
-          </Stack>
-          <StatusBar style={'dark'}/>
-      </>
+      <ClerkProvider publishableKey={publishableKey as string}>
+          <ClerkLoaded>
+              <Stack>
+                  <Stack.Screen name='index' options={{headerShown: false}}/>
+                  <Stack.Screen name='(auth)' options={{headerShown: false}}/>
+                  <Stack.Screen name='(root)' options={{headerShown: false}}/>
+                  <Stack.Screen name='+not-found'/>
+              </Stack>
+              <StatusBar style={'dark'}/>
+          </ClerkLoaded>
+      </ClerkProvider>
   );
 }
 

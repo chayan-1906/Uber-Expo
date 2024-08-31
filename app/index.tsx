@@ -1,9 +1,16 @@
 import routes from "@/constants/Routes";
-import {Href, Redirect} from "expo-router";
+import {Redirect} from "expo-router";
+import {useAuth} from "@clerk/clerk-expo";
 
 function Home() {
+    const {isSignedIn} = useAuth();
+
+    if (isSignedIn) {
+        return <Redirect href={routes.homePath}/>
+    }
+
     return (
-        <Redirect href={routes.welcomePath as Href}/>
+        <Redirect href={routes.welcomePath}/>
     );
 }
 

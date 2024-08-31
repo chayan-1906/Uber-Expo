@@ -11,5 +11,13 @@
 ### React Native Swiper - https://www.npmjs.com/package/react-native-swiper
     npm i react-native-swiper
 
+### Clerk/Clerk/Expo - https://clerk.com/docs/quickstarts/expo
+    npm install @clerk/clerk-expo
+
+### Expo Secure Store - https://docs.expo.dev/versions/latest/sdk/securestore/
+    npx expo install expo-secure-store
+
+### React Native Modal - https://www.npmjs.com/package/react-native-modal
+    npm i react-native-modal
 
 # Preview

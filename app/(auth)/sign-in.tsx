@@ -33,8 +33,8 @@ function SignInPage() {
                     <OAuth/>
 
                     <Link href={routes.signUpPath} className={'text-lg text-center text-general-200 mt-10'}>
-                        <Text>Don't have an account? </Text>
-                        <Text className={'text-primary-500'}>Sign Up</Text>
+                        <Text className={'font-JakartaSemiBold'}>Don't have an account? </Text>
+                        <Text className={'text-primary-500 font-JakartaSemiBold'}>Sign Up</Text>
                     </Link>
                 </View>
 

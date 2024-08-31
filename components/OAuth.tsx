@@ -13,7 +13,7 @@ function OAuth() {
             {/** divider / separator */}
             <View className={'flex flex-row justify-center items-center mt-4 gap-x-3'}>
                 <View className={'flex-1 h-[1px] bg-general-100'}/>
-                <Text className={'text-lg'}>Or</Text>
+                <Text className={'text-lg font-JakartaSemiBold text-general-800'}>Or</Text>
                 <View className={'flex-1 h-[1px] bg-general-100'}/>
             </View>
 
