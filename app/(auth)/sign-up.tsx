@@ -25,7 +25,6 @@ function SignUpPage() {
     const {isLoaded, signUp, setActive} = useSignUp();
     const [isPendingModalOpened, setIsPendingModalOpened] = useState(false);
     const [isSuccessModalOpened, setIsSuccessModalOpened] = useState(false);
-
     const router = useRouter();
 
     const onSignUpPress = useCallback(async () => {
@@ -80,15 +79,15 @@ function SignUpPage() {
         console.log('verification:', verification);
         if (verification.state === 'pending') {
             setIsSuccessModalOpened(false);
-            setIsPendingModalOpened(true);
+            setTimeout(() => setIsPendingModalOpened(true), 500);
         } else if (verification.state === 'success') {
             setIsPendingModalOpened(false);
-            setIsSuccessModalOpened(true);
+            setTimeout(() => setIsSuccessModalOpened(true), 500);
         }
     }, [verification.state]);
 
     return (
-        <KeyboardAvoidingScrollView classes={'flex-1 bg-white'} bounces={false} showsVerticalScrollIndicator={false}>
+        <KeyboardAvoidingScrollView classes={'flex-1'} bounces={false} showsVerticalScrollIndicator={false}>
             <View className={'flex-1 bg-white'}>
                 {/** header with bg image */}
                 <View>

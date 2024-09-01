@@ -3,7 +3,7 @@ import {KeyboardAvoidingScrollViewProps} from "@/types/type";
 
 function KeyboardAvoidingScrollView({children, classes, ...props}: KeyboardAvoidingScrollViewProps) {
     return (
-        <KeyboardAvoidingView className={'flex flex-1 bg-primary'} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <KeyboardAvoidingView className={'flex flex-1 bg-white'} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <ScrollView {...props}>
                 <View className={`mb-4 ${classes}`}>
                     {children}

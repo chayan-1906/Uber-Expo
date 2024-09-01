@@ -5,6 +5,7 @@ import {useEffect} from 'react';
 import 'react-native-reanimated';
 import {StatusBar} from "expo-status-bar";
 import {ClerkLoaded, ClerkProvider} from "@clerk/clerk-expo";
+import {tokenCache} from "@/lib/auth";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -37,7 +38,7 @@ function RootLayout() {
   }
 
   return (
-      <ClerkProvider publishableKey={publishableKey as string}>
+      <ClerkProvider publishableKey={publishableKey as string} tokenCache={tokenCache}>
           <ClerkLoaded>
               <Stack>
                   <Stack.Screen name='index' options={{headerShown: false}}/>

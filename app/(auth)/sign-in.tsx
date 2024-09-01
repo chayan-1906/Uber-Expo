@@ -1,21 +1,44 @@
-import {Image, ScrollView, Text, View} from "react-native";
+import {Alert, Image, ScrollView, Text, View} from "react-native";
 import {useCallback, useState} from "react";
 import {icons, images} from "@/constants";
 import InputField from "@/components/InputField";
 import CustomButton from "@/components/CustomButton";
 import OAuth from "@/components/OAuth";
-import {Link} from "expo-router";
+import {Link, useRouter} from "expo-router";
 import routes from "@/constants/Routes";
+import {useSignIn} from "@clerk/clerk-expo";
 
 function SignInPage() {
     const [form, setForm] = useState({
         email: '',
         password: '',
     });
+    const {signIn, setActive, isLoaded} = useSignIn();
+    const router = useRouter();
 
-    const onSignInPress = useCallback(() => {
+    const onSignInPress = useCallback(async () => {
+        if (!isLoaded) {
+            return;
+        }
+        console.log(form);
 
-    }, []);
+        try {
+            const signInAttempt = await signIn.create({
+                identifier: form.email,
+                password: form.password,
+            });
+
+            if (signInAttempt.status === 'complete') {
+                await setActive({session: signInAttempt.createdSessionId});
+                setTimeout(() => router.replace(routes.homePath), 500);
+            } else {
+                console.error(JSON.stringify(signInAttempt, null, 2));
+            }
+        } catch (err: any) {
+            // console.error(JSON.stringify(err, null, 2));
+            Alert.alert('Error', err.errors[0].longMessage);
+        }
+    }, [form]);
 
     return (
         <ScrollView className={'flex-1 bg-white'} bounces={false} showsVerticalScrollIndicator={false}>
