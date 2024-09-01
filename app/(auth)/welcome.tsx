@@ -26,7 +26,7 @@ function OnboardingPage() {
                         <View key={id}>
                             <Image source={image} resizeMode={'contain'} className={'w-full h-[300px]'}/>
                             <View className={'flex flex-row items-center justify-center w-full mt-10'}>
-                                <Text className={'text-black text-3xl font-bold mx-10 text-center'}>{title}</Text>
+                                <Text className={'text-black text-3xl font-JakartaBold mx-10 text-center'}>{title}</Text>
                             </View>
                             <Text className={'text-base font-JakartaSemiBold text-center text-[#858585] mx-10 mt-3'}>{description}</Text>
                         </View>

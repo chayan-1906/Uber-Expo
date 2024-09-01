@@ -1,4 +1,4 @@
-import {TextInputProps, TouchableOpacityProps} from "react-native";
+import {ScrollViewProps, TextInputProps, TouchableOpacityProps} from "react-native";
 import React from "react";
 
 type VerificationState = 'success' | 'default' | 'failed' | 'pending';
@@ -7,6 +7,11 @@ declare interface Verification {
     state: VerificationState;
     error: string;
     code: string;
+}
+
+declare interface KeyboardAvoidingScrollViewProps extends ScrollViewProps {
+    children: React.ReactNode;
+    classes?: string;
 }
 
 declare interface Driver {

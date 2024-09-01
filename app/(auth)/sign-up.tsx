@@ -1,4 +1,4 @@
-import {Image, ScrollView, Text, View} from "react-native";
+import {Alert, Image, Text, View} from "react-native";
 import {icons, images} from "@/constants";
 import InputField from "@/components/InputField";
 import {useCallback, useEffect, useState} from "react";
@@ -9,6 +9,7 @@ import OAuth from "@/components/OAuth";
 import {useSignUp} from "@clerk/clerk-expo";
 import {Verification} from "@/types/type";
 import {ReactNativeModal} from "react-native-modal";
+import KeyboardAvoidingScrollView from "@/components/KeyboardAvoidingScrollView";
 
 function SignUpPage() {
     const [form, setForm] = useState({
@@ -17,12 +18,13 @@ function SignUpPage() {
         password: '',
     });
     const [verification, setVerification] = useState<Verification>({
-        state: 'pending',
+        state: 'default',
         error: '',
         code: '',
     });
     const {isLoaded, signUp, setActive} = useSignUp();
-    const [isModalOpened, setIsModalOpened] = useState(false);
+    const [isPendingModalOpened, setIsPendingModalOpened] = useState(false);
+    const [isSuccessModalOpened, setIsSuccessModalOpened] = useState(false);
 
     const router = useRouter();
 
@@ -30,6 +32,7 @@ function SignUpPage() {
         if (!isLoaded) {
             return;
         }
+        console.log(form);
 
         try {
             await signUp.create({
@@ -41,14 +44,16 @@ function SignUpPage() {
 
             setVerification({...verification, state: 'pending'});
         } catch (err: any) {
-            console.error(JSON.stringify(err, null, 2));
+            // console.error(JSON.stringify(err, null, 2));
+            Alert.alert('Error', err.errors[0].longMessage);
         }
-    }, []);
+    }, [form]);
 
     const onVerifyPress = useCallback(async () => {
         if (!isLoaded) {
             return;
         }
+        console.log(verification);
 
         try {
             const completeSignUp = await signUp.attemptEmailAddressVerification({
@@ -59,23 +64,31 @@ function SignUpPage() {
                 // TODO: Create a database user!
                 await setActive({session: completeSignUp.createdSessionId});
                 setVerification({...verification, state: 'success'});
-                router.replace('/');
+                // setTimeout(() => router.replace('/'), 500);
             } else {
                 console.error(JSON.stringify(completeSignUp, null, 2));
                 setVerification({...verification, state: 'failed', error: 'Verification failed'});
             }
         } catch (err: any) {
-            console.error(JSON.stringify(err, null, 2));
+            // console.error(JSON.stringify(err, null, 2));
+            Alert.alert('Error', err.errors[0].longMessage);
             setVerification({...verification, state: 'failed', error: err.errors[0].longMessage});
         }
-    }, []);
+    }, [verification]);
 
     useEffect(() => {
-        if (verification.state === 'success') setIsModalOpened(true);
+        console.log('verification:', verification);
+        if (verification.state === 'pending') {
+            setIsSuccessModalOpened(false);
+            setIsPendingModalOpened(true);
+        } else if (verification.state === 'success') {
+            setIsPendingModalOpened(false);
+            setIsSuccessModalOpened(true);
+        }
     }, [verification.state]);
 
     return (
-        <ScrollView className={'flex-1 bg-white'}>
+        <KeyboardAvoidingScrollView classes={'flex-1 bg-white'} bounces={false} showsVerticalScrollIndicator={false}>
             <View className={'flex-1 bg-white'}>
                 {/** header with bg image */}
                 <View>
@@ -85,9 +98,11 @@ function SignUpPage() {
 
                 {/** content - input fields */}
                 <View className={'p-5'}>
-                    <InputField label={'Name'} placeholder={'Enter your name...'} icon={icons.person} value={form.name} onChangeText={(value) => setForm({...form, name: value})}/>
-                    <InputField label={'Email Address'} placeholder={'Enter your email address...'} icon={icons.email} value={form.email} onChangeText={(value) => setForm({...form, email: value})}/>
-                    <InputField label={'Password'} placeholder={'Enter a password...'} icon={icons.lock} value={form.password} onChangeText={(value) => setForm({...form, password: value})}/>
+                    <InputField label={'Name'} placeholder={'Enter your name...'} autoFocus icon={icons.person} value={form.name} onChangeText={(value) => setForm({...form, name: value})}/>
+                    <InputField label={'Email Address'} placeholder={'Enter your email address...'} keyboardType={'email-address'} inputMode={'email'} icon={icons.email} value={form.email}
+                                onChangeText={(value) => setForm({...form, email: value})}/>
+                    <InputField label={'Password'} placeholder={'Enter a password...'} icon={icons.lock} keyboardType={'visible-password'} value={form.password}
+                                onChangeText={(value) => setForm({...form, password: value})}/>
                     <CustomButton title={'Sign Up'} onPress={onSignUpPress} className={'mt-6'}/>
 
                     {/** OAuth */}
@@ -99,8 +114,24 @@ function SignUpPage() {
                     </Link>
                 </View>
 
-                {/** verification modal */}
-                <ReactNativeModal isVisible={isModalOpened}>
+                {/** pending verification modal */}
+                <ReactNativeModal isVisible={isPendingModalOpened} onModalHide={() => setVerification({...verification, state: 'success'})}>
+                    <View className={'bg-white px-7 py-9 rounded-2xl min-h-[300px]'}>
+                        <Text className={'text-2xl font-JakartaExtraBold mb-2'}>Verification</Text>
+                        <Text className={'font-Jakarta mb-5'}>We've sent a verification code to {form.email}</Text>
+                        <InputField label={'Code'} autoFocus icon={icons.lock} placeholder={'12345'} value={verification.code} keyboardType={'numeric'}
+                                    onChangeText={(code) => setVerification({...verification, code})}/>
+                        {
+                            verification.error && (
+                                <Text className={'text-red-500 text-sm mt-1'}>{verification.error}</Text>
+                            )
+                        }
+                        <CustomButton title={'Verify Email'} onPress={onVerifyPress} className={'mt-5 bg-success-500'}/>
+                    </View>
+                </ReactNativeModal>
+
+                {/** success verification modal */}
+                <ReactNativeModal isVisible={isSuccessModalOpened}>
                     <View className={'bg-white px-7 py-9 rounded-2xl min-h-[300px]'}>
                         <Image source={images.check} className={'w-[110px] h-[110px] mx-auto my-5'}/>
                         <Text className={'text-3xl font-JakartaSemiBold text-center'}>Verified</Text>
@@ -108,7 +139,7 @@ function SignUpPage() {
                         <CustomButton
                             title={'Browse Home'}
                             onPress={() => {
-                                setIsModalOpened(false);    // close modal before redirecting
+                                setIsSuccessModalOpened(false);    // close modal before redirecting
                                 setTimeout(() => router.replace(routes.homePath), 500); // after 500ms redirect to home
                             }}
                             className={'mt-5'}
@@ -116,7 +147,7 @@ function SignUpPage() {
                     </View>
                 </ReactNativeModal>
             </View>
-        </ScrollView>
+        </KeyboardAvoidingScrollView>
     );
 }
 
