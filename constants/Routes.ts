@@ -1,11 +1,11 @@
 import {Href} from "expo-router";
 
-interface Routes {
+/*interface Routes {
     welcomePath: Href;
     signInPath: Href;
     signUpPath: Href;
     homePath: Href;
-}
+}*/
 
 const routes: Record<string, Href> = {
     welcomePath: '/(auth)/welcome',

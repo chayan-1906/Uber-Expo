@@ -10,6 +10,8 @@ import {useSignUp} from "@clerk/clerk-expo";
 import {Verification} from "@/types/type";
 import {ReactNativeModal} from "react-native-modal";
 import KeyboardAvoidingScrollView from "@/components/KeyboardAvoidingScrollView";
+import {fetchAPI} from "@/lib/fetch";
+import apiUrls from "@/constants/ApiUrls";
 
 function SignUpPage() {
     const [form, setForm] = useState({
@@ -60,7 +62,14 @@ function SignUpPage() {
             });
 
             if (completeSignUp.status === 'complete') {
-                // TODO: Create a database user!
+                await fetchAPI(apiUrls.fetchUser, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: form.name,
+                        email: form.email,
+                        clerkId: completeSignUp.createdSessionId,
+                    }),
+                });
                 await setActive({session: completeSignUp.createdSessionId});
                 setVerification({...verification, state: 'success'});
                 // setTimeout(() => router.replace('/'), 500);
