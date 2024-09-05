@@ -41,7 +41,7 @@ export const images = {
     check,
     noResult,
     message,
-};
+}
 
 export const icons = {
     arrowDown,
@@ -69,7 +69,7 @@ export const icons = {
     star,
     target,
     to,
-};
+}
 
 export const onboarding = [
     {
@@ -90,8 +90,8 @@ export const onboarding = [
         description: "Enter your destination, sit back, and let us take care of the rest.",
         image: images.onboarding3,
     },
-];
+]
 
 export const data = {
     onboarding,
-};
+}
