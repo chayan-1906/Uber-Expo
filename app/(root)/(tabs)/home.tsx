@@ -164,6 +164,8 @@ function HomePage() {
                                 <Map/>
                             </View>
                         </>
+
+                        <Text className={'text-xl font-JakartaBold mt-5 mb-3'}>Recent Rides</Text>
                     </>
                 )}
             />

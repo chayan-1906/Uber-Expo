@@ -20,4 +20,10 @@
 ### React Native Modal - https://www.npmjs.com/package/react-native-modal
     npm i react-native-modal
 
+### React Native Maps - https://www.npmjs.com/package/react-native-maps
+    npm i react-native-maps
+
+### React Native Maps Directions - https://www.npmjs.com/package/react-native-maps-directions
+    https://www.npmjs.com/package/react-native-maps-directions
+
 # Preview
