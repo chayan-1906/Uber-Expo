@@ -1,12 +1,13 @@
 import {SafeAreaView} from "react-native-safe-area-context";
 import {Text} from "react-native";
+import ConfirmRide from "@/app/(root)/(screens)/confirm-ride";
 
-function FindRideScreen() {
+function BookRideScreen() {
     return (
         <SafeAreaView>
-            <Text className={'text-red-500 font-JakartaBold text-3xl'}>Find Ride Screen</Text>
+            <Text>BookRide</Text>
         </SafeAreaView>
     );
 }
 
-export default FindRideScreen;
+export default BookRideScreen;

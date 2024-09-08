@@ -35,4 +35,11 @@
 ### React Native Google Places Autocomplete - https://www.npmjs.com/package/react-native-google-places-autocomplete
     npm i react-native-google-places-autocomplete
 
+### React Native Gesture Handler - https://www.npmjs.com/package/react-native-gesture-handler
+    npm i react-native-gesture-handler
+
+### React Native Bottom Sheet - https://www.npmjs.com/package/@gorhom/bottom-sheet
+    npm i @gorhom/bottom-sheet
+
+
 # Preview
