@@ -26,4 +26,13 @@
 ### React Native Maps Directions - https://www.npmjs.com/package/react-native-maps-directions
     https://www.npmjs.com/package/react-native-maps-directions
 
+### Zustand - https://www.npmjs.com/package/zustand
+    npm i zustand
+
+### Expo Location - https://docs.expo.dev/versions/latest/sdk/location/
+    npx expo install expo-location
+
+### React Native Google Places Autocomplete - https://www.npmjs.com/package/react-native-google-places-autocomplete
+    npm i react-native-google-places-autocomplete
+
 # Preview

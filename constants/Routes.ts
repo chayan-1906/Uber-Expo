@@ -12,6 +12,7 @@ const routes: Record<string, Href> = {
     signInPath: '/(auth)/sign-in',
     signUpPath: '/(auth)/sign-up',
     homePath: '/(root)/(tabs)/home',
+    findRidePath: '/(root)/find-ride',
 }
 
 export default routes;

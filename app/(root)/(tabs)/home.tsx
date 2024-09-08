@@ -3,9 +3,13 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View} from "react-native";
 import RideCard from "@/components/RideCard";
 import {icons, images} from "@/constants";
-import {useCallback} from "react";
+import {useCallback, useEffect, useState} from "react";
 import GoogleTextInput from "@/components/GoogleTextInput";
 import Map from "@/components/Map";
+import {useLocationStore} from "@/store";
+import * as Location from 'expo-location';
+import {useRouter} from "expo-router";
+import routes from "@/constants/Routes";
 
 const recentRides = [
     {
@@ -107,16 +111,46 @@ const recentRides = [
 ]
 
 function HomePage() {
+    const {setUserLocation, setDestinationLocation} = useLocationStore();
     const {user} = useUser();
     const {firstName, emailAddresses} = user || {};
     const loading = true;
+    const router = useRouter();
+
+    const [hasPermissions, setHasPermissions] = useState(false);
 
     const handleSignOut = useCallback(() => {
 
     }, []);
 
-    const handleDestinationPress = useCallback(() => {
+    const handleDestinationPress = useCallback((location: { latitude: number, longitude: number, address: string }) => {
+        setDestinationLocation(location);
+        router.push(routes.findRidePath);
+    }, []);
 
+    useEffect(() => {
+        const requestLocation = async () => {
+            const {status} = await Location.requestForegroundPermissionsAsync();
+
+            if (status !== 'granted') {
+                setHasPermissions(false);
+                return;
+            }
+
+            const location = await Location.getCurrentPositionAsync();
+            const address = await Location.reverseGeocodeAsync({
+                latitude: location.coords?.latitude,
+                longitude: location.coords?.longitude,
+            });
+
+            setUserLocation({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                address: `${address[0].name}, ${address[0].region}`,
+            });
+        }
+
+        requestLocation();
     }, []);
 
     return (
