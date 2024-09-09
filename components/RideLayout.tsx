@@ -6,7 +6,7 @@ import {icons} from "@/constants";
 import Map from "@/components/Map";
 import BottomSheet, {BottomSheetView} from "@gorhom/bottom-sheet";
 
-function RideLayout({title, snapPoints, children}: { title: string, snapPoints: string[], children: ReactNode }) {
+function RideLayout({title, snapPoints, children}: { title: string, snapPoints?: string[], children: ReactNode }) {
     const router = useRouter();
     const bottomSheetRef = useRef<BottomSheet>(null);
 

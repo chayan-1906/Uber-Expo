@@ -8,7 +8,7 @@ const DriverCard = ({item, selected, setSelected}: DriverCardProps) => {
     const {id, first_name, last_name, profile_image_url, car_image_url, car_seats, rating, title, price, time} = item;
 
     return (
-        <TouchableOpacity onPress={setSelected} className={`${selected === id ? "bg-general-600" : "bg-white"} flex flex-row items-center justify-between py-5 px-3 rounded-xl`}>
+        <TouchableOpacity onPress={setSelected} className={`${selected === Number(id) ? "bg-general-600" : "bg-white"} flex flex-row items-center justify-between py-5 px-3 rounded-xl`}>
             <Image source={{uri: profile_image_url}} className="w-14 h-14 rounded-full"/>
 
             <View className="flex-1 flex flex-col items-start justify-center mx-3">

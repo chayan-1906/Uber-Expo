@@ -20,7 +20,7 @@ function ConfirmRideScreen() {
             <FlatList
                 data={drivers}
                 renderItem={({item}) => (
-                    <DriverCard item={item} selected={selectedDriver!} setSelected={() => setSelectedDriver(item.id)}/>
+                    <DriverCard item={item} selected={selectedDriver!} setSelected={() => setSelectedDriver(Number(item.id))}/>
                 )}
                 ListFooterComponent={() => (
                     <View className={'mx-5 mt-10'}>
