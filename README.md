@@ -41,5 +41,11 @@
 ### React Native Bottom Sheet - https://www.npmjs.com/package/@gorhom/bottom-sheet
     npm i @gorhom/bottom-sheet
 
+## https://docs.stripe.com/payments/accept-a-payment-deferred?platform=react-native
+### Stripe - https://www.npmjs.com/package/stripe
+    npm i stripe
+
+### Stripe React Native - https://www.npmjs.com/package/@stripe/stripe-react-native
+    npm i @stripe/stripe-react-native
 
 # Preview
