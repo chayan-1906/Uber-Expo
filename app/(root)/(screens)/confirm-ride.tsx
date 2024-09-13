@@ -12,7 +12,7 @@ function ConfirmRideScreen() {
     const {drivers, selectedDriver, setSelectedDriver} = useDriverStore();
 
     useEffect(() => {
-        console.log('drovers:', drivers);
+        console.log('drivers:', drivers);
     }, []);
 
     return (

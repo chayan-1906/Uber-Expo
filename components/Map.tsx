@@ -1,12 +1,14 @@
 import MapView, {Marker, PROVIDER_DEFAULT} from "react-native-maps";
 import {useDriverStore, useLocationStore} from "@/store";
 import {useEffect, useState} from "react";
-import {calculateRegion, generateMarkersFromData} from "@/lib/map";
-import {MarkerData} from "@/types/type";
+import {calculateDriverTimes, calculateRegion, generateMarkersFromData} from "@/lib/map";
+import {Driver, MarkerData} from "@/types/type";
 import {icons} from "@/constants";
-import drivers from "@/data/drivers";
+import {useFetch} from "@/lib/fetch";
+import {ActivityIndicator, Text, View} from "react-native";
 
 function Map() {
+    const {data: drivers, loading, error} = useFetch<Driver>('/(api)/driver');
     const {userLatitude, userLongitude, destinationLatitude, destinationLongitude} = useLocationStore();
     const {selectedDriver, setDrivers} = useDriverStore();
     const [markers, setMarkers] = useState<MarkerData[]>([]);
@@ -15,8 +17,6 @@ function Map() {
     });
 
     useEffect(() => {
-        setDrivers(drivers);
-
         if (Array.isArray(drivers)) {
             if (!userLatitude || !userLongitude) return;
 
@@ -29,6 +29,38 @@ function Map() {
             setMarkers(newMarkers);
         }
     }, [drivers]);
+
+    useEffect(() => {
+        if (markers.length > 0 && destinationLatitude && destinationLongitude) {
+            calculateDriverTimes({
+                markers,
+                userLatitude,
+                userLongitude,
+                destinationLatitude,
+                destinationLongitude,
+            }).then((drivers) => {
+                setDrivers(drivers as MarkerData[]);
+            });
+        }
+    }, [markers, destinationLatitude, destinationLongitude]);
+
+    /** loading */
+    if (loading || !userLatitude || !userLongitude) {
+        return (
+            <View className={'flex justify-between items-center w-full'}>
+                <ActivityIndicator color={'#000'} size={'small'}/>
+            </View>
+        );
+    }
+
+    /** error */
+    if (error) {
+        return (
+            <View className={'flex justify-between items-center w-full'}>
+                <Text>Error: {error}</Text>
+            </View>
+        );
+    }
 
     return (
         <MapView provider={PROVIDER_DEFAULT} className={'w-full h-full rounded-2xl'} tintColor={'black'} mapType={'mutedStandard'} showsPointsOfInterest={false} initialRegion={initialRegion}

@@ -57,7 +57,6 @@ function HomePage() {
 
     return (
         <SafeAreaView className={'bg-general-500'}>
-            <Text className='text-red-500'>EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY: {process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}</Text>
             <FlatList
                 data={recentRides?.slice(0, 5)}
                 // data={[]}

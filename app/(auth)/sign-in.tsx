@@ -43,7 +43,6 @@ function SignInPage() {
     return (
         <ScrollView className={'flex-1 bg-white'} bounces={false} showsVerticalScrollIndicator={false}>
             <View className={'flex-1 bg-white'}>
-                <Text className={'text-red-500'}>EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY: {process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}</Text>
                 <View>
                     <Image source={images.signUpCar} className={'z-0 w-full h-[250px]'}/>
                     <Text className={'text-3xl text-black font-JakartaBold absolute bottom-5 left-5'}>Welcome 👋</Text>
