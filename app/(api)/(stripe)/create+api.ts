@@ -19,11 +19,11 @@ export async function POST(request: Request) {
 
     const ephemeralKey = await stripe.ephemeralKeys.create(
         {customer: customer.id},
-        {apiVersion: '2024-08-27'},
+        {apiVersion: '2024-06-20'},
     );
 
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: parseInt(amount) * 100,
+        amount: Number(amount) * 100,
         currency: 'usd',
         customer: customer.id,
         automatic_payment_methods: {
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
 
     return new Response(
         JSON.stringify({
-            paymentIntent: paymentIntent.client_secret,
+            paymentIntent: paymentIntent,
             ephemeralKey: ephemeralKey.secret,
             customer: customer.id,
         }),

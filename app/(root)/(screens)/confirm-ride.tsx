@@ -5,15 +5,10 @@ import CustomButton from "@/components/CustomButton";
 import {useRouter} from "expo-router";
 import routes from "@/constants/Routes";
 import {useDriverStore} from "@/store";
-import {useEffect} from "react";
 
 function ConfirmRideScreen() {
     const router = useRouter();
     const {drivers, selectedDriver, setSelectedDriver} = useDriverStore();
-
-    useEffect(() => {
-        console.log('drivers:', drivers);
-    }, []);
 
     return (
         <RideLayout title={'Choose a Drive'} snapPoints={['65%', '85%']}>
@@ -24,7 +19,7 @@ function ConfirmRideScreen() {
                 )}
                 ListFooterComponent={() => (
                     <View className={'mx-5 mt-10'}>
-                        <CustomButton title={'Select Ride'} onPress={() => router.push(routes.bookRidePath)}/>
+                        <CustomButton title={'Select Ride'} onPress={() => router.push(routes.bookRidePath)} disabled={!selectedDriver} className={`${!selectedDriver && 'bg-gray-300'}`}/>
                     </View>
                 )}
             />

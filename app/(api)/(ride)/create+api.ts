@@ -4,12 +4,32 @@ export async function POST(request: Request) {
     try {
         const body = await request.json();
         const {
-            origin_address, destination_address, origin_latitude, origin_longitude, destination_latitude, destination_longitude, ride_time, fare_price,
-            payment_status, driver_id, user_id
+            origin_address,
+            destination_address,
+            origin_latitude,
+            origin_longitude,
+            destination_latitude,
+            destination_longitude,
+            ride_time,
+            fare_price,
+            payment_status,
+            driver_id,
+            user_id,
         } = body;
 
-        if (!origin_address || !destination_address || !origin_latitude || !origin_longitude || !destination_latitude || !destination_longitude || !ride_time ||
-            !fare_price || !payment_status || !driver_id || !user_id) {
+        if (
+            !origin_address ||
+            !destination_address ||
+            !origin_latitude ||
+            !origin_longitude ||
+            !destination_latitude ||
+            !destination_longitude ||
+            !ride_time ||
+            !fare_price ||
+            !payment_status ||
+            !driver_id ||
+            !user_id
+        ) {
             return Response.json(
                 {error: "Missing required fields"},
                 {status: 400},
@@ -42,6 +62,7 @@ export async function POST(request: Request) {
                     ${driver_id},
                     ${user_id}) RETURNING *;
         `;
+        console.log('response after creating ride:', response);
 
         return Response.json({data: response[0]}, {status: 201});
     } catch (error) {
