@@ -75,7 +75,7 @@ function HomePage() {
                             !loading ? (
                                 <>
                                     <Image source={images.noResult} alt={'No recent rides found'} resizeMode={'contain'} className={'w-40 h-40'}/>
-                                    <Text className={'text-sm'}>No recent rides found</Text>
+                                    <Text className={'text-sm font-Jakarta'}>No recent rides found</Text>
                                 </>
                             ) : (
                                 <ActivityIndicator size={'small'} color={'#000'}/>
