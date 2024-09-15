@@ -1,4 +1,4 @@
-import {useUser} from "@clerk/clerk-expo";
+import {useAuth, useUser} from "@clerk/clerk-expo";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View} from "react-native";
 import RideCard from "@/components/RideCard";
@@ -10,19 +10,21 @@ import {useLocationStore} from "@/store";
 import * as Location from 'expo-location';
 import {useRouter} from "expo-router";
 import routes from "@/constants/Routes";
-import recentRides from "@/data/recentRides";
+import {useFetch} from "@/lib/fetch";
 
 function HomePage() {
     const {setUserLocation, setDestinationLocation} = useLocationStore();
     const {user} = useUser();
+    const {signOut} = useAuth();
+    const {data: recentRides, loading} = useFetch(`/(api)/(ride)/${user?.id}`);
     const {firstName, emailAddresses} = user || {};
-    const loading = true;
     const router = useRouter();
 
     const [hasPermissions, setHasPermissions] = useState(false);
 
     const handleSignOut = useCallback(() => {
-
+        signOut();
+        router.replace(routes.signInPath);
     }, []);
 
     const handleDestinationPress = useCallback((location: { latitude: number, longitude: number, address: string }) => {
@@ -59,7 +61,6 @@ function HomePage() {
         <SafeAreaView className={'bg-general-500'}>
             <FlatList
                 data={recentRides?.slice(0, 5)}
-                // data={[]}
                 contentContainerStyle={{paddingBottom: 60}}
                 className={'px-5'}
                 keyboardShouldPersistTaps={'handled'}
