@@ -113,10 +113,34 @@ function Payment({fullName, email, amount, driverId, rideTime}: PaymentProps) {
         }
     }, []);
 
+    const createRide = useCallback(async () => {
+        const createRideResponse = await fetchAPI('/(api)/(ride)/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                origin_address: userAddress,
+                origin_latitude: userLatitude,
+                origin_longitude: userLongitude,
+                destination_address: destinationAddress,
+                destination_latitude: destinationLatitude,
+                destination_longitude: destinationLongitude,
+                ride_time: rideTime.toFixed(0),
+                fare_price: parseInt(amount) * 100,
+                payment_status: 'paid',
+                driver_id: driverId,
+                user_id: userId,
+            }),
+        });
+
+        setSuccess(true);
+    }, []);
+
     return (
         <>
             {/*<CustomButton title={'Confirm Ride'} className={'my-10'} onPress={openPaymentSheet}/>*/}
-            <CustomButton title={'Confirm Ride'} className={'my-10'} onPress={() => setSuccess(true)}/>
+            <CustomButton title={'Confirm Ride'} className={'my-10'} onPress={createRide}/>
 
             <ReactNativeModal isVisible={success} onBackdropPress={() => setSuccess(false)}>
                 <View className={'flex flex-col items-center justify-center bg-white p-7 rounded-2xl'}>
