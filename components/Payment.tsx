@@ -18,8 +18,6 @@ function Payment({fullName, email, amount, driverId, rideTime}: PaymentProps) {
     const [success, setSuccess] = useState(false);
     const router = useRouter();
 
-    console.log(amount);
-
     const initializePaymentSheet = async () => {
         console.log('initializePaymentSheet');
         const {error} = await initPaymentSheet({
@@ -117,7 +115,8 @@ function Payment({fullName, email, amount, driverId, rideTime}: PaymentProps) {
 
     return (
         <>
-            <CustomButton title={'Confirm Ride'} className={'my-10'} onPress={openPaymentSheet}/>
+            {/*<CustomButton title={'Confirm Ride'} className={'my-10'} onPress={openPaymentSheet}/>*/}
+            <CustomButton title={'Confirm Ride'} className={'my-10'} onPress={() => setSuccess(true)}/>
 
             <ReactNativeModal isVisible={success} onBackdropPress={() => setSuccess(false)}>
                 <View className={'flex flex-col items-center justify-center bg-white p-7 rounded-2xl'}>
