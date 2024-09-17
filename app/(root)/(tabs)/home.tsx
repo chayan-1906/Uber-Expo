@@ -21,6 +21,10 @@ function HomePage() {
     const {firstName, emailAddresses} = user || {};
     const router = useRouter();
 
+    /* debugging */
+    const [locationn, setLocationn] = useState({});
+    const [addresss, setAddresss] = useState({});
+
     const [hasPermissions, setHasPermissions] = useState(false);
 
     const handleSignOut = useCallback(() => {
@@ -46,10 +50,12 @@ function HomePage() {
             }
 
             const location = await Location.getCurrentPositionAsync();
+            setLocationn(location);
             const address = await Location.reverseGeocodeAsync({
                 latitude: location.coords?.latitude,
                 longitude: location.coords?.longitude,
             });
+            setAddresss(address);
 
             setUserLocation({
                 latitude: location.coords.latitude,
@@ -63,6 +69,7 @@ function HomePage() {
 
     return (
         <SafeAreaView className={'bg-general-500'}>
+            <Text>{JSON.stringify(location)}</Text>
             <FlatList
                 data={recentRides?.slice(0, 5)}
                 contentContainerStyle={{paddingBottom: 60}}
