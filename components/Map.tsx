@@ -58,7 +58,7 @@ function Map() {
     if (error) {
         return (
             <View className={'flex justify-between items-center w-full'}>
-                <Text>Error fetching drivers: {error}</Text>
+                <Text className={'text-red-500 font-Jakarta'}>Error fetching drivers: {error}</Text>
             </View>
         );
     }

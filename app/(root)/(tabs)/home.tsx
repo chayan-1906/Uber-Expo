@@ -69,7 +69,7 @@ function HomePage() {
 
     return (
         <SafeAreaView className={'bg-general-500'}>
-            <Text>{JSON.stringify(location)}</Text>
+            {/*<Text>{JSON.stringify(locationn)}</Text>*/}
             <FlatList
                 data={recentRides?.slice(0, 5)}
                 contentContainerStyle={{paddingBottom: 60}}
