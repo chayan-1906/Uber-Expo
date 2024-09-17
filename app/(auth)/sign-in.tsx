@@ -7,6 +7,7 @@ import OAuth from "@/components/OAuth";
 import {Link, useRouter} from "expo-router";
 import routes from "@/constants/Routes";
 import {useSignIn} from "@clerk/clerk-expo";
+import KeyboardAvoidingScrollView from "@/components/KeyboardAvoidingScrollView";
 
 function SignInPage() {
     const [form, setForm] = useState({
@@ -38,10 +39,10 @@ function SignInPage() {
             // console.error(JSON.stringify(err, null, 2));
             Alert.alert('Error', err.errors[0].longMessage);
         }
-    }, [form]);
+    }, [form, isLoaded, signIn, setActive, router]);
 
     return (
-        <ScrollView className={'flex-1 bg-white'} bounces={false} showsVerticalScrollIndicator={false}>
+        <KeyboardAvoidingScrollView classes={'flex-1'} bounces={false} showsVerticalScrollIndicator={false}>
             <View className={'flex-1 bg-white'}>
                 <View>
                     <Image source={images.signUpCar} className={'z-0 w-full h-[250px]'}/>
@@ -63,7 +64,7 @@ function SignInPage() {
 
                 {/** verification modal */}
             </View>
-        </ScrollView>
+        </KeyboardAvoidingScrollView>
     );
 }
 
