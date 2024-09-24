@@ -109,7 +109,7 @@ function SignUpPage() {
                     <InputField label={'Name'} placeholder={'Enter your name...'} autoFocus icon={icons.person} value={form.name} onChangeText={(value) => setForm({...form, name: value})}/>
                     <InputField label={'Email Address'} placeholder={'Enter your email address...'} keyboardType={'email-address'} inputMode={'email'} icon={icons.email} value={form.email}
                                 onChangeText={(value) => setForm({...form, email: value})}/>
-                    <InputField label={'Password'} placeholder={'Enter a password...'} icon={icons.lock} keyboardType={'visible-password'} value={form.password}
+                    <InputField label={'Password'} placeholder={'Enter a password...'} icon={icons.lock} keyboardType={'visible-password'} value={form.password} secureTextEntry
                                 onChangeText={(value) => setForm({...form, password: value})}/>
                     <CustomButton title={'Sign Up'} onPress={onSignUpPress} className={'mt-6'}/>
 
