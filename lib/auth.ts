@@ -3,11 +3,11 @@ import * as Linking from 'expo-linking';
 import {fetchAPI} from '@/lib/fetch';
 import routes from "@/constants/Routes";
 
-export interface TokenCache {
+/*export interface TokenCache {
     getToken: (key: string) => Promise<string | undefined | null>;
     saveToken: (key: string, token: string) => Promise<void>;
     clearToken: (key: string) => void;
-}
+}*/
 
 export const tokenCache = {
     async getToken(key: string) {
