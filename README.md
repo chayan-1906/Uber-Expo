@@ -1,6 +1,49 @@
 # Uber
+This project is built using React Native and TailwindCSS for the user interface, Google Maps API for rendering real-time maps with directions, PostgreSQL (NeonDB) for database.
 
-# Dependencies
+# ⚙️ Tech Stack
+• React Native
+
+• Expo
+
+• PostgreSQL
+
+• Google Maps
+
+• Zustand
+
+• Clerk
+
+• Tailwind CSS
+
+# 🔋 Features
+👉 Onboarding Flow: Seamless user registration and setup process.
+
+👉 Email Password Authentication with Verification: Secure login with email verification.
+
+👉 oAuth Using Google: Easy login using Google credentials.
+
+👉 Authorization: Secure access control for different user roles.
+
+👉 Home Screen with Live Location & Google Map: Real-time location tracking with markers on a map.
+
+👉 Recent Rides: View a list of recent rides at a glance.
+
+👉 Google Places Autocomplete: Search any place on Earth with autocomplete suggestions.
+
+👉 Find Rides: Search for rides by entering 'From' and 'To' locations.
+
+👉 Select Rides from Map: Choose available cars near your location from the map.
+
+👉 Confirm Ride with Detailed Information: View complete ride details, including time and fare price.
+
+👉 History: Review all rides booked so far.
+
+👉 Responsive on Android and iOS: Optimized for both Android and iOS devices.
+
+and many more, including code architecture and reusability
+
+# 📦 Dependencies
 
 ### Tailwind CSS - https://www.nativewind.dev/quick-starts/expo
     npm install nativewind
@@ -48,4 +91,34 @@
 ### Stripe React Native - https://www.npmjs.com/package/@stripe/stripe-react-native
     npm i @stripe/stripe-react-native
 
-# Preview
+# 💻 Preview
+
+<table>
+    <tr>
+        <td>
+            <img src="https://github.com/user-attachments/assets/179c6f27-7d8d-4898-a090-e52207dbe729" alt="splash" height="500"/>
+        </td>
+        <td>
+            <img src="https://github.com/user-attachments/assets/f1f14c96-63ba-4d46-9ec6-05ce7947e02a" alt="home" height="500"/>
+        </td>
+        <td>
+            <img src="https://github.com/user-attachments/assets/a0f811e1-4eb7-4abf-ba65-d6850db31ca1" alt="past-rides" height="500"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="https://github.com/user-attachments/assets/2d3bc394-7613-4e68-9d0a-9da4285dffa5" alt="find-ride" height="500"/>
+        </td>
+        <td>
+            <img src="https://github.com/user-attachments/assets/1c1d17aa-aec8-46fd-9357-fbb43c34b01d" alt="find-driver" height="500"/>
+        </td>
+        <td>
+            <img src="https://github.com/user-attachments/assets/2408a061-9678-4237-8cd7-e5b075a7b587" alt="confirm-ride" height="500"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="https://github.com/user-attachments/assets/1875a0e2-6bdf-4ad1-835e-f295818e197c" alt="ride-booked" height="500"/>
+        </td>
+    </tr>
+</table>
